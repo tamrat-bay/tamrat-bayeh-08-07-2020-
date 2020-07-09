@@ -1,0 +1,9 @@
+.TasksList{
+
+}
+
+.TasksList_table{
+    margin: 0 auto;
+    width: 80%;
+    direction: rtl;
+}

@@ -1,0 +1,32 @@
+GET  http://localhost:5000/tasks 
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:5000/tasks 
+Content-Type: application/json
+
+{
+    "date": "09-07-20",
+    "name": "Tamrat Bay",
+    "phone": "0504000320",
+    "email": "test@g.com",
+    "description": "build task manger with TS"
+}
+
+###
+PUT http://localhost:5000/tasks/f06cfe43068fd3fb4584791
+Content-Type: application/json
+
+{
+    "date": "09-07-20",
+    "name": "Tamrat",
+    "phone": "09000000",
+    "email": "test@g.com",
+    "description": "build task manger with TS and React"
+}
+###
+DELETE  http://localhost:5000/tasks/5f06cea7798e48290cb36ac6
+Content-Type: application/json
+

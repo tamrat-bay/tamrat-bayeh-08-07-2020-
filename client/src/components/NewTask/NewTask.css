@@ -1,0 +1,11 @@
+.NewTask {
+    position: fixed;
+    top: 50px;
+    width: 75vw;
+    background-color: gray;
+    height: 80vh;
+    border-radius: 5px;
+    border: 2px solid;
+    left: 50%;
+    transform: translate(-50%,0px);
+}
