@@ -32,6 +32,8 @@ app.post("/tasks", (req: Request, res: Response) => {
 });
 
 app.put("/tasks/:id", (req: Request, res: Response) => {
+  console.log(req.body);
+  
   return editTaskHelper(req, res);
 });
 

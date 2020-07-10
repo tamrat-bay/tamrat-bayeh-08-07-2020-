@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 interface TaskModel {
   date: string;
   name: string;
-  phone: string;
+  phone: number;
   email: string;
   description: string;
 }

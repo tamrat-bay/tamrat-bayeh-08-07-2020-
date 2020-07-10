@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const taskSchema = new mongoose.Schema({
     date: String,
     name: String,
-    phone: String,
+    phone: Number,
     email: String,
     description: String
 });

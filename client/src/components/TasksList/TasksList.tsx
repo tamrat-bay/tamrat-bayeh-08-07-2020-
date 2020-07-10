@@ -4,11 +4,21 @@ import "./TasksList.css";
 import { Table } from "react-bootstrap";
 import Task from "../Task/Task";
 import { ITask } from "../../model/ITask";
-import NewTask from "../NewTask/NewTask";
+import CreateTask from "../CreateTask/CreateTask";
+import EditTask from "../EditTask/EditTask";
 
 const TasksList: React.FC = () => {
-  const [tasks, setTasks] = useState<ITask[] | []>([]);
-  const [newTaskFlag, setNewTaskFlag] = useState<boolean>(false);
+  const [tasks, setTasks] = useState<ITask["task"][] | []>([]);
+  const [taskFormFlag, setTaskFormFlag] = useState<boolean>(false);
+  const [editFlag, setEditFlag] = useState<boolean>(false);
+  const [singleTaskData, setSingleTaskData] = useState<ITask["task"]>({
+    date: "",
+    name: "",
+    phone: "",
+    email: "",
+    description: "",
+    _id: "",
+  });
 
   useEffect(() => {
     axios
@@ -26,11 +36,25 @@ const TasksList: React.FC = () => {
     <div className="TasksList">
       <h1>TasksList</h1>
 
-      <button onClick={() => setNewTaskFlag(!newTaskFlag)}>משימה חדשה</button>
+      <button onClick={() => setTaskFormFlag(!taskFormFlag)}>משימה חדשה</button>
 
-       {
-           newTaskFlag ? <NewTask setNewTaskFlag={setNewTaskFlag} /> : null
-       }
+      {taskFormFlag ? (
+        <CreateTask
+          setTasks={setTasks}
+          tasks={tasks}
+          setTaskFormFlag={setTaskFormFlag}
+        />
+      ) : null}
+
+      {editFlag ? (
+        <EditTask
+          setEditFlag={setEditFlag}
+          setTasks={setTasks}
+          tasks={tasks}
+          task={singleTaskData}
+        />
+      ) : null}
+
       <Table bordered striped hover className="TasksList_table">
         <thead>
           <tr>
@@ -42,9 +66,18 @@ const TasksList: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {
-          tasks.map((task: ITask["task"]) => {
-            return <Task task={task} key={task._id} />;
+          {(tasks as Array<ITask["task"]>).map((task: ITask["task"]) => {
+            return (
+              <Task
+                setSingleTaskData={setSingleTaskData}
+                editFlag={editFlag}
+                setEditFlag={setEditFlag}
+                task={task}
+                key={task._id}
+                setTasks={setTasks}
+                tasks={tasks}
+              />
+            );
           })}
         </tbody>
       </Table>
