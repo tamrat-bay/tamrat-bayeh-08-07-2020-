@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./TasksList.css";
 import { Table } from "react-bootstrap";
 import Task from "../Task/Task";
 import { ITask } from "../../model/ITask";
 import CreateTask from "../CreateTask/CreateTask";
 import EditTask from "../EditTask/EditTask";
+import "./TasksList.css";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<ITask["task"][] | []>([]);
   const [taskFormFlag, setTaskFormFlag] = useState<boolean>(false);
   const [editFlag, setEditFlag] = useState<boolean>(false);
+  const [deleteFlag, setDeleteFlag] = useState(false);
   const [singleTaskData, setSingleTaskData] = useState<ITask["task"]>({
     date: "",
     name: "",
@@ -32,11 +33,35 @@ const TasksList: React.FC = () => {
     return () => {};
   }, []);
 
+  const deleteTask = (singleTask: ITask["task"]) => {
+    console.log("del,singleTask");
+
+    axios
+      .delete(`/tasks/${singleTask._id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("Task was deleted");
+          let newTasks = tasks.filter((t) => t._id !== singleTask._id);
+          setTasks(newTasks);
+          setDeleteFlag(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="TasksList">
-      <h1>TasksList</h1>
+      <h4 className="TasksList_cxNumbers">
+        {" "}
+        ({tasks.length}) רשימת הלקוחות שלך
+      </h4>
 
-      <button onClick={() => setTaskFormFlag(!taskFormFlag)}>משימה חדשה</button>
+      <button
+        className="TasksList_newTaskBtn"
+        onClick={() => setTaskFormFlag(!taskFormFlag)}
+      >
+        משימה חדשה
+      </button>
 
       {taskFormFlag ? (
         <CreateTask
@@ -55,13 +80,25 @@ const TasksList: React.FC = () => {
         />
       ) : null}
 
-      <Table bordered striped hover className="TasksList_table">
+      {deleteFlag ? (
+        <div className="TaskList_delete">
+          <h2>לחיצה על אישור תמחק את המשימה</h2>
+          <button onClick={() => deleteTask(singleTaskData)}>אישור</button>
+          <button onClick={() => setDeleteFlag(false)}>ביטול</button>
+        </div>
+      ) : null}
+
+      <Table className="TasksList_table">
         <thead>
           <tr>
-            <th>שם</th>
+            <th className="checkBox_tableCell">
+              {" "}
+              <input type="checkbox" />
+              שם <i className="fas fa-sort"></i>
+            </th>
             <th>טלפון</th>
             <th>מייל</th>
-            <th>תאריך יצירת המשימה</th>
+            <th>תאריך יצירת המשימה<i className="fas fa-sort"></i></th>
             <th>פעולות</th>
           </tr>
         </thead>
@@ -69,13 +106,12 @@ const TasksList: React.FC = () => {
           {(tasks as Array<ITask["task"]>).map((task: ITask["task"]) => {
             return (
               <Task
+                setDeleteFlag={setDeleteFlag}
                 setSingleTaskData={setSingleTaskData}
                 editFlag={editFlag}
                 setEditFlag={setEditFlag}
                 task={task}
                 key={task._id}
-                setTasks={setTasks}
-                tasks={tasks}
               />
             );
           })}

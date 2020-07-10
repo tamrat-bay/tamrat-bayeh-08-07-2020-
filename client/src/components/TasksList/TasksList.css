@@ -1,9 +1,63 @@
 .TasksList{
-
+    padding: 60px 0px;
+}
+.TasksList .TaskList_delete{
+    position: fixed;
+    background: white;
+    border: 1px solid black;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    background-color: #d4d4d4;
+}
+.TasksList_newTaskBtn {
+    position: absolute;
+    left: 0;
+    top: 25px;
+    background-color: #00B074;
+    color: #fff;
+    border: none;
+    height: 28px;
+    width: 100px;
+}
+.TasksList_cxNumbers{
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+.TasksList_table {
+    margin: 0 auto;
+    width: 100%;
+    direction: rtl;
+    border-collapse: collapse;
+    border: 2px solid #EFEFEF;
+}
+.TasksList_table thead {
+    background-color: #EFEFEF;
+}
+.TasksList_table .checkBox_tableCell{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    vertical-align: inherit;
+}
+.TasksList_table .fa-sort {
+    padding: 1px 3px;
+    font-size: 13px;
 }
 
-.TasksList_table{
-    margin: 0 auto;
-    width: 80%;
-    direction: rtl;
+.TasksList_table .fa-check {
+    padding: 1px 3px;
+    font-size: 13px;
+    color: #00B074;;
+}
+.TasksList_table tbody tr td {
+    padding:15px;
+}
+.TasksList_table tbody tr {
+    border-bottom: 1px solid #CECECE;
+    height: 45px;
+}
+.TasksList_table tbody tr:hover {
+    background-color: #EAF9F3;
 }
