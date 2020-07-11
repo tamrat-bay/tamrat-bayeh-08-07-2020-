@@ -25,7 +25,7 @@ color: #00b074 !important;
 
 /* *Media Query* */
 @media only screen and (max-width: 992px) {
-    .navbar .mr-auto, .mx-auto {
-        width: 100%;
+    .navbar-nav {
+        padding: 0;
     }
 }
