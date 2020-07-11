@@ -12,14 +12,15 @@ interface ITaskForm {
   axiosInfo: IAxiosInfo;
 }
 
-const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }) => {
-  
+const TaskForm: React.FC<ITaskForm> = ({
+  closeWindow,
+  initialValues,
+  axiosInfo,
+}) => {
   const handleSubmit: (values: ITask["task"]) => void = (
     values: ITask["task"]
   ) => {
     const { method, url, methodFunction } = axiosInfo;
-    console.log("handle sub", method);
-
     switch (method) {
       case "post":
         axios
@@ -37,7 +38,6 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           .put(`${url}/${initialValues._id}`, values)
           .then((res) => {
             if (res.status === 200) {
-              console.log(res.data, "Success (EDIT)");
               methodFunction(res.data);
             }
           })
@@ -51,11 +51,9 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
     }
   };
 
-
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      console.log("val", values);
       handleSubmit(values);
     },
   });
@@ -66,38 +64,10 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
 
   return (
     <div className="TaskForm">
-      <h3>{axiosInfo.method === 'post' ? "משימה חדשה" : "עריכה"}</h3>
-
-{/* 
-      <form className="TaskForm_form">
-  <div className="form-group">
-    <label htmlFor="exampleFormControlInput1">שם</label>
-    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleFormControlInput2">מייל</label>
-    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleFormControlInput3">טלפון</label>
-    <input type="tel" pattern="[0-9]{10}" className="form-control" id="exampleFormControlInput1" placeholder="0500000000" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleFormControlInput4"></label>
-    <input type="date" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleFormControlTextarea1">תיאור המשימה</label>
-    <textarea className="form-control" id="exampleFormControlTextarea1" rows={3}></textarea>
-  </div>
-  <button type="submit" className="btn btn-primary">Sign in</button>
-</form> */}
-
+      <h3>{axiosInfo.method === "post" ? "משימה חדשה" : "עריכה"}</h3>
       <Form onSubmit={() => formik.handleSubmit()} className="TaskForm_form">
         <div className="form-group">
-          <label >
-            שם
-          </label>
+          <label>שם</label>
           <Col sm={6}>
             <input
               onChange={handleChange}
@@ -106,7 +76,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               name="name"
               type="text"
               value={formik.values.name}
-              placeholder="שם"
+              placeholder="שם משתמש"
               autoComplete="false"
               required
             />
@@ -114,9 +84,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
         </div>
 
         <div className="form-group">
-          <label >
-            מייל
-          </label>
+          <label>מייל</label>
           <Col sm={6}>
             <input
               onChange={handleChange}
@@ -125,7 +93,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               name="email"
               type="email"
               value={formik.values.email}
-              placeholder="מייל"
+              placeholder="name@address.com"
               autoComplete="false"
               required
             />
@@ -133,11 +101,10 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
         </div>
 
         <div className="form-group">
-          <label >
-            טלפון
-          </label>
+          <label>טלפון</label>
           <Col sm={6}>
             <input
+              onInvalid={(e) =>  e.target.setCustomValidity('מספר הטלפון חייב להיות בעל 10 תווים')}
               id="phone"
               type="tel"
               pattern="[0-9]{10}"
@@ -145,16 +112,14 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               minLength={10}
               name="phone"
               value={formik.values.phone}
-              placeholder="phone"
+              placeholder="0500000000"
               autoComplete="false"
               required
             />
           </Col>
         </div>
         <div className="form-group">
-          <label >
-            תאריך
-          </label>
+          <label>תאריך</label>
           <Col sm={6}>
             <input
               id="date"
@@ -169,13 +134,10 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           </Col>
         </div>
         <div className="form-group">
-          <label >
-            משימה
-          </label>
+          <label>משימה</label>
           <Col sm={6}>
             <textarea
               id="description"
-              
               rows={3}
               value={formik.values.description}
               onChange={handleChange}

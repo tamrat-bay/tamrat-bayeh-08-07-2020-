@@ -29,7 +29,6 @@ const TasksList: React.FC = () => {
       .get("/tasks")
       .then((res) => {
         setTasks(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
 
@@ -43,7 +42,6 @@ const TasksList: React.FC = () => {
       .delete(`/tasks/${singleTask._id}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log("Task was deleted");
           let newTasks = tasks.filter((t) => t._id !== singleTask._id);
           setTasks(newTasks);
           setDeleteFlag(false);
@@ -54,6 +52,11 @@ const TasksList: React.FC = () => {
 
   return (
     <div className="TasksList">
+         <div className="TasksList_searchBar">
+              <h3>ניהול משימות</h3>
+              <input type="text" />
+         </div>
+
       <h4 className="TasksList_cxNumbers">
         ({tasks.length}) רשימת הלקוחות שלך
       </h4>
@@ -88,10 +91,12 @@ const TasksList: React.FC = () => {
           setDeleteFlag={setDeleteFlag}
           singleTaskData={singleTaskData}
         />
-      ) : 
-      null}
+      ) : null}
       {viewTaskFlag ? (
-        <ViewTask setViewTaskFlag={setViewTaskFlag} singleTaskData={singleTaskData}/>
+        <ViewTask
+          setViewTaskFlag={setViewTaskFlag}
+          singleTaskData={singleTaskData}
+        />
       ) : null}
 
       <Table className="TasksList_table">
