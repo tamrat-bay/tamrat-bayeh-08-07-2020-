@@ -16,9 +16,10 @@
     outline: none;
 }
 .Task_actions i {
-    border: 1px solid #777777;
+    border: 1px solid;
+    color: #666666;
     padding: 5px;
-    font-size: 14px;
-    border-radius: 15px;
+    font-size: 12px;
+    border-radius: 12px;
     cursor: pointer;
 }

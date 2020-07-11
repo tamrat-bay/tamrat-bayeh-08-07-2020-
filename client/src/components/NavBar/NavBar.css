@@ -1,3 +1,32 @@
 .navbar {
     direction: rtl;
+    box-shadow: 0 2px 2px #ECECEC;
+    /* height: 80px; */
+}
+
+.navbar .mr-auto, .mx-auto {
+    margin-right: 0px;
+    width: 85%;
+}
+.navbar .navbar-dark .navbar-nav .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    color: #707070;
+    font-weight: 500;
+    font-size: 1.08em;
+    text-align: center;
+    cursor: pointer;
+}
+.activeNavLink {
+border-bottom: 4px solid #00b074;
+color: #00b074 !important;
+}
+
+/* *Media Query* */
+@media only screen and (max-width: 992px) {
+    .navbar .mr-auto, .mx-auto {
+        width: 100%;
+    }
 }

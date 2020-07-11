@@ -9,6 +9,7 @@ interface TaskModel {
   description: string;
 }
 
+
 //!Before deploy check if req/res is needed
 const getTaskHelper = (req: Request, res: Response) => {
   Task.find({})
@@ -17,21 +18,20 @@ const getTaskHelper = (req: Request, res: Response) => {
 };
 
 const postTaskHelper = (req: Request, res: Response) => {
-  const { date, name, phone, email, description }: TaskModel = req.body;
-
+  let { date, name, phone, email, description }: TaskModel = req.body;
   Task.create({
     date,
     name,
     phone,
     email,
-    description
+    description,
   })
     .then((task) => res.status(201).send(task))
     .catch((err) => res.status(400).send(err));
 };
 
 const editTaskHelper = (req: Request, res: Response) => {
-  const newTask: TaskModel = req.body;
+  let newTask: TaskModel = req.body;
   const id: string = req.params.id;
 
   Task.findByIdAndUpdate(id, newTask, { new: true })
@@ -47,9 +47,4 @@ const deleteTaskHelper = (req: Request, res: Response) => {
     .catch((err) => res.status(400).send(err));
 };
 
-export { 
-    postTaskHelper, 
-    getTaskHelper, 
-    editTaskHelper, 
-    deleteTaskHelper 
-   };
+export { postTaskHelper, getTaskHelper, editTaskHelper, deleteTaskHelper };

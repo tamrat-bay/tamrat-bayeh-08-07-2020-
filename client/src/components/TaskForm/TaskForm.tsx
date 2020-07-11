@@ -13,7 +13,7 @@ interface ITaskForm {
 }
 
 const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }) => {
-
+  
   const handleSubmit: (values: ITask["task"]) => void = (
     values: ITask["task"]
   ) => {
@@ -51,6 +51,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
     }
   };
 
+
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -67,7 +68,6 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
     <div className="TaskForm">
       <h1>{axiosInfo.method}</h1>
       <button onClick={() => closeWindow(false)}>Close</button>
-
       <Form onSubmit={formik.handleSubmit} className="TaskForm_form">
         <Form.Group as={Row}>
           <Form.Label column sm={2}>

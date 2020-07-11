@@ -3,8 +3,8 @@
     top: 50px;
     width: 70%;
     background-color: #e1f6ed;
-    height: 500px;
-    overflow: overlay;
+    height: 452px;
+    overflow-y: overlay;
     border-radius: 5px;
     border: 1px solid #777777;
     left: 50%;

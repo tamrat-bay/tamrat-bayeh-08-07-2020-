@@ -1,9 +1,27 @@
 .App {
   text-align: center;
 }
-.App .container {
+.App .container-fluid {
     width: 80%;
     margin: 0 auto;
     position: relative;
     padding: 0;
+}
+
+
+/* * Media Query* */
+@media only screen and (max-width: 808px) {
+  .App .container-fluid{
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 658px) {
+  .App .container-fluid{
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .App .container-fluid{
+    width: 100%;
+  }
 }

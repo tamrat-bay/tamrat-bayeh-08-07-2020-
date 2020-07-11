@@ -14,7 +14,13 @@ const Task: React.FC<ISingleTask> = ({
   setEditFlag,
   setSingleTaskData,
 }) => {
-  const { date, name, phone, email } = task;
+  let { date, name, phone, email } = task;
+
+  const formatDateStr: (dateStr: string) => string = (dateStr) => {
+    return dateStr.split("-").reverse().join("-");
+  };
+
+  date = formatDateStr(date);
 
   return (
     <>

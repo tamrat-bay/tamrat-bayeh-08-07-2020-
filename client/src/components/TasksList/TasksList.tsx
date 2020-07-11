@@ -33,6 +33,8 @@ const TasksList: React.FC = () => {
     return () => {};
   }, []);
 
+  const reversedTasks: ITask["task"][] | [] = [...tasks].reverse();
+  
   const deleteTask = (singleTask: ITask["task"]) => {
     axios
       .delete(`/tasks/${singleTask._id}`)
@@ -104,17 +106,19 @@ const TasksList: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {(tasks as Array<ITask["task"]>).map((task: ITask["task"]) => {
-            return (
-              <Task
-                setDeleteFlag={setDeleteFlag}
-                setSingleTaskData={setSingleTaskData}
-                setEditFlag={setEditFlag}
-                task={task}
-                key={task._id}
-              />
-            );
-          })}
+          {(reversedTasks as Array<ITask["task"]>).map(
+            (task: ITask["task"]) => {
+              return (
+                <Task
+                  setDeleteFlag={setDeleteFlag}
+                  setSingleTaskData={setSingleTaskData}
+                  setEditFlag={setEditFlag}
+                  task={task}
+                  key={task._id}
+                />
+              );
+            }
+          )}
         </tbody>
       </Table>
     </div>
