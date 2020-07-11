@@ -2,7 +2,7 @@
     position: fixed;
     top: 50px;
     width: 70%;
-    background-color: #e1f6ed;
+    background-color: #fff;
     height: 452px;
     overflow-y: overlay;
     border-radius: 5px;
@@ -14,7 +14,13 @@
     direction: rtl;
     margin: 0 auto;
 }
-
+.TaskForm h3{
+    color: #00B074;
+    text-shadow: 1px 1px 2px black;
+}
+.TaskForm .form-control {
+    padding: 0 .75rem;
+}
 .TaskForm_form .form-group {
     margin-bottom: 0rem;
     display: flex;
@@ -26,4 +32,10 @@
 }
 .TaskForm_form .row {
   margin: 0;
+}
+.TaskForm .btn-primary {
+    color: #fff;
+    background-color: #00B074;
+    border-color: white;
+    margin: 5px;
 }

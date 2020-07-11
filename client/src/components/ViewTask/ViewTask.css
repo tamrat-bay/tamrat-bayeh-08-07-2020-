@@ -1,0 +1,28 @@
+.ViewTask {
+    position: fixed;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 80px;
+    height: 335px;
+    overflow-y: overlay;
+    border: 2px solid #777777;
+    border-radius: 12px;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%,0px);
+}
+.ViewTask h3 {
+   color: #00B074
+}
+.ViewTask button {
+    width: 100px;
+    border: 2px solid #b50909;
+    background-color: #f6f6f6;
+    border-radius: 5px;
+}
+.ViewTask p {
+    white-space: pre-wrap;
+}

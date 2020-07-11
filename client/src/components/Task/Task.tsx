@@ -4,6 +4,7 @@ import "./Task.css";
 
 interface ISingleTask extends ITask {
   setEditFlag: React.Dispatch<React.SetStateAction<boolean>>;
+  setViewTaskFlag: React.Dispatch<React.SetStateAction<boolean>>;
   setDeleteFlag: React.Dispatch<React.SetStateAction<boolean>>;
   setSingleTaskData: React.Dispatch<React.SetStateAction<ITask["task"]>>;
 }
@@ -12,6 +13,7 @@ const Task: React.FC<ISingleTask> = ({
   task,
   setDeleteFlag,
   setEditFlag,
+  setViewTaskFlag,
   setSingleTaskData,
 }) => {
   let { date, name, phone, email } = task;
@@ -38,7 +40,12 @@ const Task: React.FC<ISingleTask> = ({
           <span>{date}</span>
         </td>
         <td className="Task_actions">
-          <button>
+          <button
+            onClick={() => {
+              setSingleTaskData(task);
+              setViewTaskFlag(true);
+            }}
+          >
             <i className="fas fa-eye"></i>
             <p>צפייה</p>
           </button>

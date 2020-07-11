@@ -6,11 +6,14 @@ import { ITask } from "../../models/ITask";
 import CreateTask from "../CreateTask/CreateTask";
 import EditTask from "../EditTask/EditTask";
 import "./TasksList.css";
+import DeleteTask from "../DeleteTask/DeleteTask";
+import ViewTask from "../ViewTask/ViewTask";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<ITask["task"][] | []>([]);
   const [taskFormFlag, setTaskFormFlag] = useState<boolean>(false);
   const [editFlag, setEditFlag] = useState<boolean>(false);
+  const [viewTaskFlag, setViewTaskFlag] = useState<boolean>(false);
   const [deleteFlag, setDeleteFlag] = useState(false);
   const [singleTaskData, setSingleTaskData] = useState<ITask["task"]>({
     date: "",
@@ -34,7 +37,7 @@ const TasksList: React.FC = () => {
   }, []);
 
   const reversedTasks: ITask["task"][] | [] = [...tasks].reverse();
-  
+
   const deleteTask = (singleTask: ITask["task"]) => {
     axios
       .delete(`/tasks/${singleTask._id}`)
@@ -80,11 +83,15 @@ const TasksList: React.FC = () => {
       ) : null}
 
       {deleteFlag ? (
-        <div className="TaskList_delete">
-          <h2>לחיצה על אישור תמחק את המשימה</h2>
-          <button onClick={() => deleteTask(singleTaskData)}>אישור</button>
-          <button onClick={() => setDeleteFlag(false)}>ביטול</button>
-        </div>
+        <DeleteTask
+          deleteTask={deleteTask}
+          setDeleteFlag={setDeleteFlag}
+          singleTaskData={singleTaskData}
+        />
+      ) : 
+      null}
+      {viewTaskFlag ? (
+        <ViewTask setViewTaskFlag={setViewTaskFlag} singleTaskData={singleTaskData}/>
       ) : null}
 
       <Table className="TasksList_table">
@@ -110,6 +117,7 @@ const TasksList: React.FC = () => {
             (task: ITask["task"]) => {
               return (
                 <Task
+                  setViewTaskFlag={setViewTaskFlag}
                   setDeleteFlag={setDeleteFlag}
                   setSingleTaskData={setSingleTaskData}
                   setEditFlag={setEditFlag}

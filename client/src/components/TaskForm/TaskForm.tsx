@@ -66,8 +66,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
 
   return (
     <div className="TaskForm">
-      <h1>{axiosInfo.method}</h1>
-      <button onClick={() => closeWindow(false)}>Close</button>
+      <h3>{axiosInfo.method === 'post' ? "משימה חדשה" : "עריכה"}</h3>
       <Form onSubmit={formik.handleSubmit} className="TaskForm_form">
         <Form.Group as={Row}>
           <Form.Label column sm={2}>
@@ -165,6 +164,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
         <Form.Group as={Row}>
           <Col sm={{ span: 12 }}>
             <Button type="submit">שמור</Button>
+            <Button onClick={() => closeWindow(false)}>יציאה</Button>
           </Col>
         </Form.Group>
       </Form>

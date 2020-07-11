@@ -3,15 +3,6 @@
     margin: 20px auto;
     position: relative;
 }
-.TasksList .TaskList_delete{
-    position: fixed;
-    background: white;
-    border: 1px solid black;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%, -50%);
-    background-color: #d4d4d4;
-}
 .TasksList_newTaskBtn {
     position: absolute;
     left: 0;

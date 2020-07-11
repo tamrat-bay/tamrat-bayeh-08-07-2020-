@@ -1,0 +1,23 @@
+.DeleteTask {
+    position: fixed;
+    height: 220px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #800101;
+    border-radius: 12px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+}
+
+.DeleteTask h2{
+    font-size: 1.3em;
+    margin: 10px 0;
+}
+.DeleteTask_buttons button{
+    margin: 0 5px;
+}

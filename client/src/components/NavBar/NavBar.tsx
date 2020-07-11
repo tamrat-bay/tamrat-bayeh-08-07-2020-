@@ -7,18 +7,6 @@ const NavBar = () => {
   const [activeLink, setActiveLink] = useState(1);
 
   return (
-    // <span><img alt="PropiT" src="./images/propitLogo.png" /></span>
-    //   <Navbar bg="light" collapseOnSelect expand="lg" variant="light">
-    //   <Navbar.Brand href="#home">
-    //     <img
-    //       alt="propit"
-    //       src="./images/propitLogo.png"
-    //       width="112"
-    //       height="30"
-    //       className="d-inline-block align-top"
-    //     />
-    //   </Navbar.Brand>
-    // </Navbar>
     <Navbar collapseOnSelect expand="lg">
       <Navbar.Brand href="#home">
         <img
@@ -36,42 +24,42 @@ const NavBar = () => {
             className={activeLink === 1 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(1)}
             id="1"
-            href="#features"
+            href="#"
           >
             חיפוש
           </Nav.Link>
           <Nav.Link
             className={activeLink === 2 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(2)}
-            href="#pricing"
+            href="#"
           >
             מועדפים
           </Nav.Link>
           <Nav.Link
             className={activeLink === 3 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(3)}
-            href="#deets"
+            href="#"
           >
             מחשבון שטחים
           </Nav.Link>
           <Nav.Link
             className={activeLink === 4 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(4)}
-            href="#deets"
+            href="#"
           >
             הוספת נכס
           </Nav.Link>
           <Nav.Link
             className={activeLink === 5 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(5)}
-            href="#deets"
+            href="#"
           >
             תגמול שותים
           </Nav.Link>
           <Nav.Link
             className={activeLink === 6 ? "activeNavLink" : ""}
             onClick={() => setActiveLink(6)}
-            href="#deets"
+            href="#"
           >
             קבל הצעות אישיות
           </Nav.Link>
