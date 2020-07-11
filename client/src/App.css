@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+.App .container {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    padding: 0;
+}

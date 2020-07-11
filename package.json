@@ -1,0 +1,14 @@
+{
+  "name": "propit-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd server && npm run dev",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "install-all": "npm run client-install && npm run server-install"
+  },
+  "author": "",
+  "license": "ISC"
+}

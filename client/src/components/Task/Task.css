@@ -1,0 +1,24 @@
+
+
+.Task_actions {
+    display: flex;
+    justify-content: space-around;
+}
+.Task_actions p {
+  margin: 0;
+}
+
+.Task_actions button{
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 50px;
+    outline: none;
+}
+.Task_actions i {
+    border: 1px solid #777777;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 15px;
+    cursor: pointer;
+}
