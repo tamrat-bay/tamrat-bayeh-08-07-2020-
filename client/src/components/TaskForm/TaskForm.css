@@ -33,9 +33,12 @@
 .TaskForm_form .row {
   margin: 0;
 }
-.TaskForm .btn-primary {
+.TaskForm button.btn {
     color: #fff;
     background-color: #00B074;
     border-color: white;
     margin: 5px;
+}
+.TaskForm_form input,.TaskForm_form textarea  {
+    width: 100%;
 }

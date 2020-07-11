@@ -12,6 +12,7 @@
     color: #707070 !important;
     font-weight: 500;
     font-size: 1em;
+    text-decoration: none;
 }
 .navbar .nav-link  {
     display: flex;
