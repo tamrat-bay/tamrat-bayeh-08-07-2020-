@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-// import { Link } from "react-router-dom";
 
 import "./NavBar.css";
 const NavBar:React.FC = () => {
   const [activeLink, setActiveLink] = useState(1);
 
   return (
+    
     <Navbar collapseOnSelect expand="lg">
       <Navbar.Brand href="#home">
         <img
