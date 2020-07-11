@@ -1,21 +1,20 @@
 .navbar {
-    direction: rtl;
+    direction: rtl !important;
     box-shadow: 0 2px 2px #ECECEC;
-    /* height: 80px; */
+    background-color: white;
 }
 
 .navbar .mr-auto, .mx-auto {
     margin-right: 0px;
     width: 85%;
 }
-.navbar .navbar-dark .navbar-nav .nav-link {
+.navbar .nav-link {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 2vw;
     color: #707070;
     font-weight: 500;
-    font-size: 1.08em;
+    font-size: 1em;
     text-align: center;
     cursor: pointer;
 }
