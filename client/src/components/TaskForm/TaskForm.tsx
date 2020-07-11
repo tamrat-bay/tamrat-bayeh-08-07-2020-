@@ -104,7 +104,6 @@ const TaskForm: React.FC<ITaskForm> = ({
           <label>טלפון</label>
           <Col sm={6}>
             <input
-              onInvalid={(e) =>  e.target.setCustomValidity('מספר הטלפון חייב להיות בעל 10 תווים')}
               id="phone"
               type="tel"
               pattern="[0-9]{10}"
