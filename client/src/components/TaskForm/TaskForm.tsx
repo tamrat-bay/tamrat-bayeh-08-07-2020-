@@ -67,13 +67,39 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
   return (
     <div className="TaskForm">
       <h3>{axiosInfo.method === 'post' ? "משימה חדשה" : "עריכה"}</h3>
-      <Form onSubmit={formik.handleSubmit} className="TaskForm_form">
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
+
+{/* 
+      <form className="TaskForm_form">
+  <div className="form-group">
+    <label htmlFor="exampleFormControlInput1">שם</label>
+    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+  </div>
+  <div className="form-group">
+    <label htmlFor="exampleFormControlInput2">מייל</label>
+    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+  </div>
+  <div className="form-group">
+    <label htmlFor="exampleFormControlInput3">טלפון</label>
+    <input type="tel" pattern="[0-9]{10}" className="form-control" id="exampleFormControlInput1" placeholder="0500000000" />
+  </div>
+  <div className="form-group">
+    <label htmlFor="exampleFormControlInput4"></label>
+    <input type="date" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+  </div>
+  <div className="form-group">
+    <label htmlFor="exampleFormControlTextarea1">תיאור המשימה</label>
+    <textarea className="form-control" id="exampleFormControlTextarea1" rows={3}></textarea>
+  </div>
+  <button type="submit" className="btn btn-primary">Sign in</button>
+</form> */}
+
+      <Form onSubmit={() => formik.handleSubmit()} className="TaskForm_form">
+        <div className="form-group">
+          <label >
             שם
-          </Form.Label>
+          </label>
           <Col sm={6}>
-            <Form.Control
+            <input
               onChange={handleChange}
               id="name"
               minLength={2}
@@ -85,14 +111,14 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               required
             />
           </Col>
-        </Form.Group>
+        </div>
 
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
+        <div className="form-group">
+          <label >
             מייל
-          </Form.Label>
+          </label>
           <Col sm={6}>
-            <Form.Control
+            <input
               onChange={handleChange}
               minLength={5}
               id="email"
@@ -104,14 +130,14 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               required
             />
           </Col>
-        </Form.Group>
+        </div>
 
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
+        <div className="form-group">
+          <label >
             טלפון
-          </Form.Label>
+          </label>
           <Col sm={6}>
-            <Form.Control
+            <input
               id="phone"
               type="tel"
               pattern="[0-9]{10}"
@@ -124,13 +150,13 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               required
             />
           </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
+        </div>
+        <div className="form-group">
+          <label >
             תאריך
-          </Form.Label>
+          </label>
           <Col sm={6}>
-            <Form.Control
+            <input
               id="date"
               type="date"
               value={formik.values.date}
@@ -141,15 +167,15 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               required
             />
           </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
+        </div>
+        <div className="form-group">
+          <label >
             משימה
-          </Form.Label>
+          </label>
           <Col sm={6}>
-            <Form.Control
+            <textarea
               id="description"
-              as="textarea"
+              
               rows={3}
               value={formik.values.description}
               onChange={handleChange}
@@ -159,14 +185,14 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
               required
             />
           </Col>
-        </Form.Group>
+        </div>
 
-        <Form.Group as={Row}>
-          <Col sm={{ span: 12 }}>
+        <div className="form-group">
+          <Col>
             <Button type="submit">שמור</Button>
             <Button onClick={() => closeWindow(false)}>יציאה</Button>
           </Col>
-        </Form.Group>
+        </div>
       </Form>
     </div>
   );
