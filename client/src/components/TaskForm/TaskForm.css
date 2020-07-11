@@ -1,11 +1,29 @@
 .TaskForm {
     position: fixed;
     top: 50px;
-    width: 75vw;
-    background-color: gray;
-    height: 80vh;
+    width: 70%;
+    background-color: #e1f6ed;
+    height: 500px;
+    overflow: overlay;
     border-radius: 5px;
-    border: 2px solid;
+    border: 1px solid #777777;
     left: 50%;
     transform: translate(-50%,0px);
+}
+.TaskForm_form {
+    direction: rtl;
+    margin: 0 auto;
+}
+
+.TaskForm_form .form-group {
+    margin-bottom: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.TaskForm_form .col-form-label {
+    padding: 0;
+}
+.TaskForm_form .row {
+  margin: 0;
 }

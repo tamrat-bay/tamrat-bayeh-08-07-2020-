@@ -73,7 +73,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           <Form.Label column sm={2}>
             שם
           </Form.Label>
-          <Col sm={12}>
+          <Col sm={6}>
             <Form.Control
               onChange={handleChange}
               id="name"
@@ -92,7 +92,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           <Form.Label column sm={2}>
             מייל
           </Form.Label>
-          <Col sm={12}>
+          <Col sm={6}>
             <Form.Control
               onChange={handleChange}
               minLength={5}
@@ -111,7 +111,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           <Form.Label column sm={2}>
             טלפון
           </Form.Label>
-          <Col sm={12}>
+          <Col sm={6}>
             <Form.Control
               id="phone"
               type="tel"
@@ -130,7 +130,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           <Form.Label column sm={2}>
             תאריך
           </Form.Label>
-          <Col sm={12}>
+          <Col sm={6}>
             <Form.Control
               id="date"
               type="date"
@@ -147,7 +147,7 @@ const TaskForm: React.FC<ITaskForm> = ({ closeWindow, initialValues, axiosInfo }
           <Form.Label column sm={2}>
             משימה
           </Form.Label>
-          <Col sm={12}>
+          <Col sm={6}>
             <Form.Control
               id="description"
               as="textarea"

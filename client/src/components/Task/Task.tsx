@@ -5,17 +5,7 @@ import "./Task.css";
 interface ISingleTask extends ITask {
   setEditFlag: React.Dispatch<React.SetStateAction<boolean>>;
   setDeleteFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  setSingleTaskData: React.Dispatch<
-    React.SetStateAction<{
-      date: string;
-      name: string;
-      phone: string;
-      email: string;
-      description: string;
-      _id: string;
-      _v?: number | undefined;
-    }>
-  >;
+  setSingleTaskData: React.Dispatch<React.SetStateAction<ITask["task"]>>;
 }
 
 const Task: React.FC<ISingleTask> = ({
