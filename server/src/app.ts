@@ -43,7 +43,7 @@ app.delete("/tasks/:id", (req: Request, res: Response) => {
 
 
 if (process.env.NODE_ENV === "production") {
-  const buildPath = path.join(__dirname,"..", "client", "build");
+  const buildPath = path.join(__dirname,"..", "..", "client", "build");
   app.use(express.static(buildPath));
   // --- handle unknown route
   app.get("*", (req : Request, res: Response) => {

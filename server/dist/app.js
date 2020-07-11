@@ -32,7 +32,7 @@ app.delete("/tasks/:id", (req, res) => {
     return tasksHelper_1.deleteTaskHelper(req, res);
 });
 if (process.env.NODE_ENV === "production") {
-    const buildPath = path_1.default.join(__dirname, "..", "client", "build");
+    const buildPath = path_1.default.join(__dirname, "..", "..", "client", "build");
     app.use(express_1.default.static(buildPath));
     // --- handle unknown route
     app.get("*", (req, res) => {
