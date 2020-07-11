@@ -10,7 +10,7 @@
     "build": "cd client && npm run build",
     "start": "cd server && npm start",
     "install-all": "npm run client-install && npm run server-install",
-    "heroku-postbuild": "npm run client-install && npm run build"
+    "heroku-postbuild": "npm run install-all && npm run build"
   },
   "engines": {
     "node": "12.18.1"
