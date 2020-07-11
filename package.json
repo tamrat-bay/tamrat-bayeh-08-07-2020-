@@ -8,7 +8,8 @@
     "client-install": "cd client && npm install",
     "server-install": "cd server && npm install",
     "build": "cd client && npm run build",
-    "install-all": "npm run client-install && npm run server-install"
+    "install-all": "npm run client-install && npm run server-install",
+    "heroku-postbuild": "npm run client-install && npm run build"
   },
   "author": "",
   "license": "ISC"

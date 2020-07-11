@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 
 import "./NavBar.css";
-const NavBar = () => {
+const NavBar:React.FC = () => {
   const [activeLink, setActiveLink] = useState(1);
 
   return (
