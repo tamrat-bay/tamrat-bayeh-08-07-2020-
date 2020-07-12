@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import path from "path";
 import mongoose from "mongoose";
+import verifyToken from './helpers/verifyToken';
+import { register, login } from './helpers/authHelper'
 import {
   postTaskHelper,
   getTaskHelper,
@@ -24,8 +26,21 @@ mongoose
   .then(() => console.log("MongoDb is Connected"))
   .catch((err) => console.log(err));
 
-app.get("/tasks", (req: Request, res: Response) => {
-  getTaskHelper(req, res);
+
+//Authentication
+app.post('/users/register', (req: Request, res: Response) => {
+  console.log(req.body);
+  
+  return register(req, res);
+});
+
+app.post('/users/login', (req: Request, res: Response) => {
+  console.log(req.body);
+  return login(req, res);
+});
+
+app.get("/tasks/", (req: Request, res: Response) => {
+  return getTaskHelper(req, res);
 });
 
 app.post("/tasks", (req: Request, res: Response) => {
@@ -39,6 +54,7 @@ app.put("/tasks/:id", (req: Request, res: Response) => {
 app.delete("/tasks/:id", (req: Request, res: Response) => {
   return deleteTaskHelper(req, res);
 });
+
 
 if (process.env.NODE_ENV === "production") {
   const buildPath = path.join(__dirname, "..", "..", "client", "build");

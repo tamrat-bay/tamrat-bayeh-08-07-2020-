@@ -1,6 +1,6 @@
 .ViewTask {
     position: fixed;
-    width: 60vw;
+    width: 65vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,4 +25,7 @@
 }
 .ViewTask p {
     white-space: pre-wrap;
+    width: 90%;
+    box-sizing: border-box;
+    overflow-y: overlay;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
 import { ITask } from "../../models/ITask";
 import { IAxiosInfo } from "../../models/IAxiosInfo";
 import "./TaskForm.css";
@@ -17,9 +17,7 @@ const TaskForm: React.FC<ITaskForm> = ({
   initialValues,
   axiosInfo,
 }) => {
-  const handleSubmit: (values: ITask["task"]) => void = (
-    values: ITask["task"]
-  ) => {
+  const handleSubmit: (values: ITask["task"]) => void = (values) => {
     const { method, url, methodFunction } = axiosInfo;
     switch (method) {
       case "post":
