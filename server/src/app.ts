@@ -12,8 +12,8 @@ import {
 
 const app: Application = express();
 const Port: number | string = process.env.PORT || 5000;
-const MongoURI: string =
-  "mongodb+srv://funsports:11221122@cluster0-gfrt7.mongodb.net/propit-task?retryWrites=true&w=majority";
+const MongoURI: string = "mongo";
+ 
 
 app.use(express.json());
 
