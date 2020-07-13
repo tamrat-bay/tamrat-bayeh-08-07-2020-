@@ -1,26 +1,25 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Form, Col, Button } from "react-bootstrap";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 interface IRegister {
-    password: string;
-    name: string;
-    phone: string;
-    email: string;
+  password: string;
+  name: string;
+  phone: string;
+  email: string;
 }
 
 const Register: React.FC = () => {
+  const [isRegistered, setIsRegistered] = useState(false);
 
-   const [isRegistered, setIsRegistered] = useState(false) ;
-   
   const handleSubmit: (values: IRegister) => void = (values) => {
     axios
       .post("/users/register", values)
       .then((res) => {
         if (res.status === 201) {
-          setIsRegistered(true)
+          setIsRegistered(true);
         }
       })
       .catch((err) => console.log(err));
@@ -31,7 +30,7 @@ const Register: React.FC = () => {
       name: "",
       phone: "",
       email: "",
-      password: ""
+      password: "",
     },
     onSubmit: (values) => {
       handleSubmit(values);
@@ -41,10 +40,16 @@ const Register: React.FC = () => {
   const handleChange = (e: string | React.ChangeEvent<any>) => {
     formik.handleChange(e);
   };
- if (isRegistered) return <Redirect to="/login" />
+  if (isRegistered) return <Redirect to="/login" />;
   return (
     <div>
-      <Form onSubmit={(e) => {e.preventDefault();formik.handleSubmit()}} className="TaskForm_form">
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          formik.handleSubmit();
+        }}
+        className="TaskForm_form"
+      >
         <div className="form-group">
           <label>שם</label>
           <Col sm={6}>

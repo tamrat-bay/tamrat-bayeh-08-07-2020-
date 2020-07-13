@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     tasks: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'apply'
+        ref: 'task'
     }]
 }, { timestamps: true });
 

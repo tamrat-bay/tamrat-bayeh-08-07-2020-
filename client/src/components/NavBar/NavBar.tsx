@@ -1,8 +1,16 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from "react";
+import { Link, Redirect } from "react-router-dom";
 import "./NavBar.css";
+import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
+
 const NavBar: React.FC = () => {
   const [activeLink, setActiveLink] = useState(1);
+  const { isUserLogged, setIsUserLogged } = useContext(IsUserLoggedContext);
+
+  const logOut: () => void = () => {
+    setIsUserLogged(false);
+    localStorage.clear();
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,90 +35,95 @@ const NavBar: React.FC = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
+          {isUserLogged ? (
             <Link
-              to="#"
+              to="/tasks"
               className={
-                activeLink === 1 ? "activeNavLink nav-link" : "nav-link"
+                activeLink === 7 ? "activeNavLink nav-link" : "nav-link"
               }
-              onClick={() => setActiveLink(1)}
+              onClick={() => setActiveLink(7)}
             >
-              חיפוש
+              ניהול משימות
             </Link>
-          
-          
-            <Link
-              to="#"
-              className={
-                activeLink === 2 ? "activeNavLink nav-link" : "nav-link"
-              }
-              onClick={() => setActiveLink(2)}
-            >
-              מועדפים
-            </Link>
-          
-          
-            <Link
-              to="#"
-              className={
-                activeLink === 3 ? "activeNavLink nav-link" : "nav-link"
-              }
-              onClick={() => setActiveLink(3)}
-            >
-              מחשבון שטחים
-            </Link>
-          
-          
-            <Link
-              to="#"
-              className={
-                activeLink === 4 ? "activeNavLink nav-link" : "nav-link"
-              }
-              onClick={() => setActiveLink(4)}
-            >
-              הוספת נכס
-            </Link>
-          
-          
-            <Link
-              to="#"
-              className={
-                activeLink === 5 ? "activeNavLink nav-link" : "nav-link"
-              }
-              onClick={() => setActiveLink(5)}
-            >
-              תגמול שותפים
-            </Link>
-          
+          ) : (
+            ""
+          )}
+          <Link
+            to="#"
+            className={activeLink === 1 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(1)}
+          >
+            חיפוש
+          </Link>
 
-          
-            <Link
-              to="#"
-              className={
-                activeLink === 6 ? "activeNavLink nav-link" : "nav-link"
-              }
-              onClick={() => setActiveLink(6)}
-            >
-              קבל הצעות אישיות
-            </Link>
-          
+          <Link
+            to="#"
+            className={activeLink === 2 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(2)}
+          >
+            מועדפים
+          </Link>
+
+          <Link
+            to="#"
+            className={activeLink === 3 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(3)}
+          >
+            מחשבון שטחים
+          </Link>
+
+          <Link
+            to="#"
+            className={activeLink === 4 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(4)}
+          >
+            הוספת נכס
+          </Link>
+
+          <Link
+            to="#"
+            className={activeLink === 5 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(5)}
+          >
+            תגמול שותפים
+          </Link>
+
+          <Link
+            to="#"
+            className={activeLink === 6 ? "activeNavLink nav-link" : "nav-link"}
+            onClick={() => setActiveLink(6)}
+          >
+            קבל הצעות אישיות
+          </Link>
         </ul>
         <ul className="navbar-nav">
-          
-            <Link className={"nav-link"} to="/register" onClick={() => setActiveLink(0)}>
-                 הרשמה   
+          {isUserLogged ? (
+            <Link onClick={logOut} className={"nav-link"} to="/">
+              התנתקות
             </Link>
-            
+          ) : (
+            <>
+              <Link
+                className={"nav-link"}
+                to="/register"
+                onClick={() => setActiveLink(0)}
+              >
+                הרשמה
+              </Link>
 
-            <Link className="nav-link" to="/login"  onClick={() => setActiveLink(0)}>
-              התחברות
-            </Link>
-            
-            
-            
-            <Link to="#" className={"nav-link"} onClick={() => setActiveLink(0)}>
-              077-9985041
-            </Link>
-          
+              <Link
+                className="nav-link"
+                to="/login"
+                onClick={() => setActiveLink(0)}
+              >
+                התחברות
+              </Link>
+            </>
+          )}
+
+          <Link to="#" className={"nav-link"} onClick={() => setActiveLink(0)}>
+            077-9985041
+          </Link>
         </ul>
       </div>
     </nav>

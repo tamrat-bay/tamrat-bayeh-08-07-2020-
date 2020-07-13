@@ -23,9 +23,12 @@ const CreateTask: React.FC<ICreateTask> = ({
     _id: "",
   };
 
+  const { id, token } = JSON.parse(localStorage.userInfo);
+
   const axiosInfo: IAxiosInfo = {
     method: "post",
-    url: "/tasks",
+    url: `/tasks/${id}`,
+    token:`Bearer ${token}`,
     methodFunction: (newData: ITask["task"]) => {
       let newTasks: ITask["task"][] | [] = [...tasks, newData];
       setTasks(newTasks);

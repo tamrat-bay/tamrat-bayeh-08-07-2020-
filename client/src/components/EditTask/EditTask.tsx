@@ -16,9 +16,12 @@ const EditTask: React.FC<IEditTask> = ({
   tasks,
   task,
 }) => {
+  const { token } = JSON.parse(localStorage.userInfo);
+
   const axiosInfo: IAxiosInfo = {
     method: "put",
-    url: "/tasks",
+    url: `/tasks/${task._id}`,
+    token: `Bearer ${token}`,
     methodFunction: (newData: ITask["task"]) => {
       let temp: ITask["task"][] = [...tasks];
       const index: number = temp.findIndex((t) => t._id === task._id);

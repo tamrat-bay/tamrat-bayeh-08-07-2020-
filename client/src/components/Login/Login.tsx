@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Form, Col, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { log } from "console";
+import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
 
 interface ILogin {
   password: string;
   email: string;
 }
 
-const Register: React.FC = () => {
-  const [isLogged, setIsLogged] = useState(false);
+const Login: React.FC = () => {
+  const { isUserLogged, setIsUserLogged } = useContext(IsUserLoggedContext);
 
   const handleSubmit: (values: ILogin) => void = (values) => {
     axios
       .post("/users/login", values)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
-          setIsLogged(true);
+          const { name, id, email, type, phone, token } = res.data;
+          const user = { name, id, email, type, phone, token };
+          localStorage.setItem("userInfo", JSON.stringify(user));
+          setIsUserLogged(true);
         }
       })
       .catch((err) => console.log(err));
@@ -40,8 +41,8 @@ const Register: React.FC = () => {
     formik.handleChange(e);
   };
 
-  if (isLogged) {
-    return <Redirect to="/" />;
+  if (isUserLogged) {
+    return <Redirect to="/tasks" />;
   }
 
   return (
@@ -97,4 +98,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Login;

@@ -25,7 +25,9 @@
 border-bottom: 4px solid #00b074;
 color: #00b074 !important;
 }
-
+#navbarNav{
+    justify-content: space-between ;
+}
 /* *Media Query* */
 @media only screen and (max-width: 992px) {
     .navbar-nav {

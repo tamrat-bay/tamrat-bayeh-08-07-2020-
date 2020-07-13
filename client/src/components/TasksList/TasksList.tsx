@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import Task from "../Task/Task";
@@ -8,8 +8,11 @@ import EditTask from "../EditTask/EditTask";
 import "./TasksList.css";
 import DeleteTask from "../DeleteTask/DeleteTask";
 import ViewTask from "../ViewTask/ViewTask";
+import { Redirect } from "react-router-dom";
+import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
 
 const TasksList: React.FC = () => {
+  const { isUserLogged } = useContext(IsUserLoggedContext);
   const [tasks, setTasks] = useState<ITask["task"][] | []>([]);
   const [taskFormFlag, setTaskFormFlag] = useState<boolean>(false);
   const [editFlag, setEditFlag] = useState<boolean>(false);
@@ -24,22 +27,38 @@ const TasksList: React.FC = () => {
     _id: "",
   });
 
+  const { id, token } = JSON.parse(localStorage.userInfo);
+
   useEffect(() => {
-    axios
-      .get("/tasks")
+    axios({
+      method: "get",
+      url: `/tasks/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
-        setTasks(res.data);
+        if (res.status === 200) {
+          setTasks(res.data);
+        }
       })
       .catch((err) => console.log(err));
 
     return () => {};
   }, []);
 
+  if (!isUserLogged) return <Redirect to="/" />;
+
   const reversedTasks: ITask["task"][] | [] = [...tasks].reverse();
 
   const deleteTask = (singleTask: ITask["task"]) => {
-    axios
-      .delete(`/tasks/${singleTask._id}`)
+    axios({
+      method: "delete",
+      url: `/tasks/${singleTask._id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         if (res.status === 200) {
           let newTasks = tasks.filter((t) => t._id !== singleTask._id);
@@ -52,10 +71,10 @@ const TasksList: React.FC = () => {
 
   return (
     <div className="TasksList">
-         <div className="TasksList_searchBar">
-              <h3>ניהול משימות</h3>
-              <input type="text" />
-         </div>
+      <div className="TasksList_searchBar">
+        <h3>ניהול משימות</h3>
+        <input type="text" />
+      </div>
 
       <h4 className="TasksList_cxNumbers">
         ({tasks.length}) רשימת הלקוחות שלך

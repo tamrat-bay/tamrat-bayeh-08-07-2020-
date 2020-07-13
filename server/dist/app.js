@@ -22,11 +22,9 @@ mongoose_1.default
     .catch((err) => console.log(err));
 //Authentication
 app.post('/users/register', (req, res) => {
-    console.log(req.body);
     return authHelper_1.register(req, res);
 });
 app.post('/users/login', (req, res) => {
-    console.log(req.body);
     return authHelper_1.login(req, res);
 });
 app.get("/tasks/", (req, res) => {

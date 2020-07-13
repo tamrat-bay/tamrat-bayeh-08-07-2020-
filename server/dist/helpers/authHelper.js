@@ -51,7 +51,6 @@ function login(req, res) {
             bcrypt_1.default.compare(password, user.password)
                 .then(result => {
                 if (result) {
-                    console.log('user resu found', result);
                     //create and assign token
                     let TOKEN_SECRET = "anythingiwant"; //todo - make this an env var later
                     const token = jsonwebtoken_1.default.sign({ _id: id }, TOKEN_SECRET);

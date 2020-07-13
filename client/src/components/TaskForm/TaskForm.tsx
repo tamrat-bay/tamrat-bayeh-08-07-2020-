@@ -18,22 +18,34 @@ const TaskForm: React.FC<ITaskForm> = ({
   axiosInfo,
 }) => {
   const handleSubmit: (values: ITask["task"]) => void = (values) => {
-    const { method, url, methodFunction } = axiosInfo;
+    const { method, url, token, methodFunction } = axiosInfo;
+    const userInfo = JSON.parse(localStorage.userInfo);
+    values.email = userInfo.email;
+    values.name = userInfo.name;
+    values.phone = userInfo.phone;
     switch (method) {
       case "post":
-        axios
-          .post(`${url}`, values)
+        axios({
+          method: "post",
+          url: url,
+          data: values,
+          headers: { Authorization: token },
+        })
           .then((res) => {
             if (res.status === 201) {
               methodFunction(res.data);
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log("catcherr", err));
         break;
 
       case "put":
-        axios
-          .put(`${url}/${initialValues._id}`, values)
+        axios({
+          method: "put",
+          url: url,
+          data: values,
+          headers: { Authorization: token },
+        })
           .then((res) => {
             if (res.status === 200) {
               methodFunction(res.data);
@@ -63,58 +75,13 @@ const TaskForm: React.FC<ITaskForm> = ({
   return (
     <div className="TaskForm">
       <h3>{axiosInfo.method === "post" ? "משימה חדשה" : "עריכה"}</h3>
-      <Form onSubmit={() => formik.handleSubmit()} className="TaskForm_form">
-        <div className="form-group">
-          <label>שם</label>
-          <Col sm={6}>
-            <input
-              onChange={handleChange}
-              id="name"
-              minLength={2}
-              name="name"
-              type="text"
-              value={formik.values.name}
-              placeholder="שם משתמש"
-              autoComplete="false"
-              required
-            />
-          </Col>
-        </div>
-
-        <div className="form-group">
-          <label>מייל</label>
-          <Col sm={6}>
-            <input
-              onChange={handleChange}
-              minLength={5}
-              id="email"
-              name="email"
-              type="email"
-              value={formik.values.email}
-              placeholder="name@address.com"
-              autoComplete="false"
-              required
-            />
-          </Col>
-        </div>
-
-        <div className="form-group">
-          <label>טלפון</label>
-          <Col sm={6}>
-            <input
-              id="phone"
-              type="tel"
-              pattern="[0-9]{10}"
-              onChange={handleChange}
-              minLength={10}
-              name="phone"
-              value={formik.values.phone}
-              placeholder="0500000000"
-              autoComplete="false"
-              required
-            />
-          </Col>
-        </div>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          formik.handleSubmit();
+        }}
+        className="TaskForm_form"
+      >
         <div className="form-group">
           <label>תאריך</label>
           <Col sm={6}>

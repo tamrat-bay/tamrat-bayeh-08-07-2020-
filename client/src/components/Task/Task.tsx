@@ -16,7 +16,8 @@ const Task: React.FC<ISingleTask> = ({
   setViewTaskFlag,
   setSingleTaskData,
 }) => {
-  let { date, name, phone, email } = task;
+  let { date, name, email, phone } = task;
+  const userInfo = JSON.parse(localStorage.userInfo);
 
   const formatDateStr: (dateStr: string) => string = (dateStr) => {
     return dateStr.split("-").reverse().join("-");

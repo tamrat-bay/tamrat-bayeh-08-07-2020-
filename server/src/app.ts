@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import path from "path";
 import mongoose from "mongoose";
-import verifyToken from './helpers/verifyToken';
-import { register, login } from './helpers/authHelper'
+import verifyToken from "./helpers/verifyToken";
+import { register, login } from "./helpers/authHelper";
 import {
   postTaskHelper,
   getTaskHelper,
@@ -12,8 +12,8 @@ import {
 
 const app: Application = express();
 const Port: number | string = process.env.PORT || 5000;
-const MongoURI: string = "mongodb+srv://funsports:11221122@cluster0-gfrt7.mongodb.net/propit-task?retryWrites=true&w=majority";
- 
+const MongoURI: string =
+  "mongodb+srv://funsports:11221122@cluster0-gfrt7.mongodb.net/propit-task?retryWrites=true&w=majority";
 
 app.use(express.json());
 
@@ -26,35 +26,30 @@ mongoose
   .then(() => console.log("MongoDb is Connected"))
   .catch((err) => console.log(err));
 
-
 //Authentication
-app.post('/users/register', (req: Request, res: Response) => {
-  console.log(req.body);
-  
+app.post("/users/register", (req: Request, res: Response) => {
   return register(req, res);
 });
 
-app.post('/users/login', (req: Request, res: Response) => {
-  console.log(req.body);
+app.post("/users/login", (req: Request, res: Response) => {
   return login(req, res);
 });
 
-app.get("/tasks/", (req: Request, res: Response) => {
+app.get("/tasks/:userId", verifyToken, (req: Request, res: Response) => {
   return getTaskHelper(req, res);
 });
 
-app.post("/tasks", (req: Request, res: Response) => {
+app.post("/tasks/:userId", verifyToken, (req: Request, res: Response) => {
   return postTaskHelper(req, res);
 });
 
-app.put("/tasks/:id", (req: Request, res: Response) => {
+app.put("/tasks/:id", verifyToken, (req: Request, res: Response) => {
   return editTaskHelper(req, res);
 });
 
-app.delete("/tasks/:id", (req: Request, res: Response) => {
+app.delete("/tasks/:id", verifyToken, (req: Request, res: Response) => {
   return deleteTaskHelper(req, res);
 });
-
 
 if (process.env.NODE_ENV === "production") {
   const buildPath = path.join(__dirname, "..", "..", "client", "build");
