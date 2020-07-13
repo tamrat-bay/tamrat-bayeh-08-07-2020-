@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const verifyToken_1 = __importDefault(require("./helpers/verifyToken"));
 const authHelper_1 = require("./helpers/authHelper");
 const tasksHelper_1 = require("./helpers/tasksHelper");
 const app = express_1.default();
@@ -21,22 +22,22 @@ mongoose_1.default
     .then(() => console.log("MongoDb is Connected"))
     .catch((err) => console.log(err));
 //Authentication
-app.post('/users/register', (req, res) => {
+app.post("/users/register", (req, res) => {
     return authHelper_1.register(req, res);
 });
-app.post('/users/login', (req, res) => {
+app.post("/users/login", (req, res) => {
     return authHelper_1.login(req, res);
 });
-app.get("/tasks/", (req, res) => {
+app.get("/tasks/:userId", verifyToken_1.default, (req, res) => {
     return tasksHelper_1.getTaskHelper(req, res);
 });
-app.post("/tasks", (req, res) => {
+app.post("/tasks/:userId", verifyToken_1.default, (req, res) => {
     return tasksHelper_1.postTaskHelper(req, res);
 });
-app.put("/tasks/:id", (req, res) => {
+app.put("/tasks/:id", verifyToken_1.default, (req, res) => {
     return tasksHelper_1.editTaskHelper(req, res);
 });
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", verifyToken_1.default, (req, res) => {
     return tasksHelper_1.deleteTaskHelper(req, res);
 });
 if (process.env.NODE_ENV === "production") {

@@ -12,7 +12,7 @@ const userSchema = new mongoose_1.default.Schema({
     password: String,
     tasks: [{
             type: mongoose_1.default.Schema.Types.ObjectId,
-            ref: 'apply'
+            ref: 'task'
         }]
 }, { timestamps: true });
 const User = mongoose_1.default.model('user', userSchema);
