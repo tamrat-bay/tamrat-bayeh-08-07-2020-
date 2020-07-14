@@ -27,9 +27,9 @@ const TasksList: React.FC = () => {
     _id: "",
   });
 
-  const { id, token } = JSON.parse(localStorage.userInfo);
+  const getTasks = () => {
+    const { id, token } = JSON.parse(localStorage.userInfo);
 
-  useEffect(() => {
     axios({
       method: "get",
       url: `/tasks/${id}`,
@@ -43,15 +43,22 @@ const TasksList: React.FC = () => {
         }
       })
       .catch((err) => console.log(err));
+  };
 
-    return () => {};
-  }, []);
+  useEffect(() => {
+    if (isUserLogged) {
+      getTasks();
+    }
+
+  }, [isUserLogged]);
 
   if (!isUserLogged) return <Redirect to="/" />;
 
   const reversedTasks: ITask["task"][] | [] = [...tasks].reverse();
 
   const deleteTask = (singleTask: ITask["task"]) => {
+    const { token } = JSON.parse(localStorage.userInfo);
+
     axios({
       method: "delete",
       url: `/tasks/${singleTask._id}`,

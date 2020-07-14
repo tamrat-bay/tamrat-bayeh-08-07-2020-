@@ -13,7 +13,7 @@ import {
 const app: Application = express();
 const Port: number | string = process.env.PORT || 5000;
 const MongoURI: string =
-  "mongo";
+  "mongodb+srv://funsports:11221122@cluster0-gfrt7.mongodb.net/propit-task?retryWrites=true&w=majority";
 
 app.use(express.json());
 
