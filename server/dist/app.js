@@ -11,7 +11,7 @@ const authHelper_1 = require("./helpers/authHelper");
 const tasksHelper_1 = require("./helpers/tasksHelper");
 const app = express_1.default();
 const Port = process.env.PORT || 5000;
-const MongoURI = "mongodb+srv://funsports:11221122@cluster0-gfrt7.mongodb.net/propit-task?retryWrites=true&w=majority";
+const MongoURI = "mongo";
 app.use(express_1.default.json());
 mongoose_1.default
     .connect(MongoURI, {
