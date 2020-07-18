@@ -1,9 +1,10 @@
-import React, {  useContext } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Form, Col, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
+import { useStore } from "../../contexts/storeContext";
+import { useObserver } from "mobx-react";
 
 interface ILogin {
   password: string;
@@ -11,8 +12,7 @@ interface ILogin {
 }
 
 const Login: React.FC = () => {
-  const { isUserLogged, setIsUserLogged } = useContext(IsUserLoggedContext);
-
+  const stateStore = useStore()
   const handleSubmit: (values: ILogin) => void = (values) => {
     axios
       .post("/users/login", values)
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
           const { name, id, email, type, phone, token } = res.data;
           const user = { name, id, email, type, phone, token };
           localStorage.setItem("userInfo", JSON.stringify(user));
-          setIsUserLogged(true);
+          stateStore.setIsUserLogged()
         }
       })
       .catch((err) => console.log(err));
@@ -41,11 +41,11 @@ const Login: React.FC = () => {
     formik.handleChange(e);
   };
 
-  if (isUserLogged) {
-    return <Redirect to="/tasks" />;
-  }
-
-  return (
+  return useObserver(() => {
+    if (stateStore.isUserLogged) {
+      return  <Redirect to="/tasks" />;
+    }
+    return (
     <div>
       <Form
         onSubmit={(e) => {
@@ -95,6 +95,7 @@ const Login: React.FC = () => {
         </div>
       </Form>
     </div>
+    )}
   );
 };
 

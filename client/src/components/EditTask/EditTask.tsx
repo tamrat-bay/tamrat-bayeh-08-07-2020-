@@ -2,20 +2,20 @@ import React from "react";
 import TaskForm from "../TaskForm/TaskForm";
 import { ITask } from "../../models/ITask";
 import { IAxiosInfo } from "../../models/IAxiosInfo";
+import { useStore } from "../../contexts/storeContext";
+import { useObserver } from "mobx-react";
 
 interface IEditTask {
   setEditFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  setTasks: React.Dispatch<React.SetStateAction<ITask["task"][] | []>>;
-  tasks: ITask["task"][] | [];
+
   task: ITask["task"];
 }
 
 const EditTask: React.FC<IEditTask> = ({
   setEditFlag,
-  setTasks,
-  tasks,
   task,
 }) => {
+  const stateStore = useStore()
   const { token } = JSON.parse(localStorage.userInfo);
 
   const axiosInfo: IAxiosInfo = {
@@ -23,15 +23,12 @@ const EditTask: React.FC<IEditTask> = ({
     url: `/tasks/${task._id}`,
     token: `Bearer ${token}`,
     methodFunction: (newData: ITask["task"]) => {
-      let temp: ITask["task"][] = [...tasks];
-      const index: number = temp.findIndex((t) => t._id === task._id);
-      temp[index] = { ...newData };
-      setTasks(temp);
+      stateStore.editTask(task._id,newData)
       setEditFlag(false);
     },
   };
 
-  return (
+  return useObserver(() =>
     <TaskForm
       axiosInfo={axiosInfo}
       initialValues={task}

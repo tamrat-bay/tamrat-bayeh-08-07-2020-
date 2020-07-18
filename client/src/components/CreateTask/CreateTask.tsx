@@ -2,18 +2,19 @@ import React from "react";
 import TaskForm from "../TaskForm/TaskForm";
 import { ITask } from "../../models/ITask";
 import { IAxiosInfo } from "../../models/IAxiosInfo";
+import { useStore } from "../../contexts/storeContext";
+import { useObserver } from "mobx-react";
 
 interface ICreateTask {
   setTaskFormFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  setTasks: React.Dispatch<React.SetStateAction<ITask["task"][] | []>>;
-  tasks: ITask["task"][] | [];
+
 }
 
 const CreateTask: React.FC<ICreateTask> = ({
   setTaskFormFlag,
-  setTasks,
-  tasks,
 }) => {
+  const stateStore = useStore();
+  
   const task: ITask["task"] = {
     name: "",
     phone: "",
@@ -29,14 +30,13 @@ const CreateTask: React.FC<ICreateTask> = ({
     method: "post",
     url: `/tasks/${id}`,
     token:`Bearer ${token}`,
-    methodFunction: (newData: ITask["task"]) => {
-      let newTasks: ITask["task"][] | [] = [...tasks, newData];
-      setTasks(newTasks);
+    methodFunction: (newTask: ITask["task"]) => {
+      stateStore.addTask(newTask);
       setTaskFormFlag(false);
     },
   };
 
-  return (
+  return useObserver(() =>
     <TaskForm
       axiosInfo={axiosInfo}
       initialValues={task}

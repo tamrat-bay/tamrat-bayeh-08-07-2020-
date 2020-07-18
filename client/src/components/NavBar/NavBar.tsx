@@ -1,18 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
-import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
+import { useStore } from "../../contexts/storeContext";
+import { useObserver } from "mobx-react";
 
 const NavBar: React.FC = () => {
+  const stateStore = useStore()
   const [activeLink, setActiveLink] = useState(1);
-  const { isUserLogged, setIsUserLogged } = useContext(IsUserLoggedContext);
 
   const logOut: () => void = () => {
-    setIsUserLogged(false);
+    stateStore.setIsUserLogged()
     localStorage.clear();
   };
 
-  return (
+  return useObserver(() =>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
         <img
@@ -35,7 +36,7 @@ const NavBar: React.FC = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          {isUserLogged ? (
+          {stateStore.isUserLogged ? (
             <Link
               to="/tasks"
               className={
@@ -97,7 +98,7 @@ const NavBar: React.FC = () => {
           </Link>
         </ul>
         <ul className="navbar-nav">
-          {isUserLogged ? (
+          {stateStore.isUserLogged ? (
             <Link onClick={logOut} className={"nav-link"} to="/">
               התנתקות
             </Link>

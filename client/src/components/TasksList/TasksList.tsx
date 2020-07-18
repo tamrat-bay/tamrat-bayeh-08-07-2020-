@@ -5,15 +5,15 @@ import Task from "../Task/Task";
 import { ITask } from "../../models/ITask";
 import CreateTask from "../CreateTask/CreateTask";
 import EditTask from "../EditTask/EditTask";
-import "./TasksList.css";
 import DeleteTask from "../DeleteTask/DeleteTask";
 import ViewTask from "../ViewTask/ViewTask";
 import { Redirect } from "react-router-dom";
-import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
+import { useStore } from "../../contexts/storeContext";
+import { useObserver } from "mobx-react";
+import "./TasksList.css";
 
 const TasksList: React.FC = () => {
-  const { isUserLogged } = useContext(IsUserLoggedContext);
-  const [tasks, setTasks] = useState<ITask["task"][] | []>([]);
+  const stateStore = useStore();
   const [taskFormFlag, setTaskFormFlag] = useState<boolean>(false);
   const [editFlag, setEditFlag] = useState<boolean>(false);
   const [viewTaskFlag, setViewTaskFlag] = useState<boolean>(false);
@@ -39,44 +39,25 @@ const TasksList: React.FC = () => {
     })
       .then((res) => {
         if (res.status === 200) {
-          setTasks(res.data);
+          stateStore.getTasks(res.data)
         }
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    if (isUserLogged) {
+    if (stateStore.isUserLogged) {
       getTasks();
     }
 
-  }, [isUserLogged]);
+  }, [stateStore.isUserLogged]);
 
-  if (!isUserLogged) return <Redirect to="/" />;
+ 
+  return useObserver(() => {
+    const reversedTasks: ITask["task"][] | [] = [...stateStore.tasks].reverse();
 
-  const reversedTasks: ITask["task"][] | [] = [...tasks].reverse();
-
-  const deleteTask = (singleTask: ITask["task"]) => {
-    const { token } = JSON.parse(localStorage.userInfo);
-
-    axios({
-      method: "delete",
-      url: `/tasks/${singleTask._id}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          let newTasks = tasks.filter((t) => t._id !== singleTask._id);
-          setTasks(newTasks);
-          setDeleteFlag(false);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  return (
+    if (!stateStore.isUserLogged) return <Redirect to="/" />
+    return (
     <div className="TasksList">
       <div className="TasksList_searchBar">
         <h3>ניהול משימות</h3>
@@ -84,7 +65,7 @@ const TasksList: React.FC = () => {
       </div>
 
       <h4 className="TasksList_cxNumbers">
-        ({tasks.length}) רשימת הלקוחות שלך
+        ({stateStore.tasks.length}) רשימת הלקוחות שלך
       </h4>
 
       <button
@@ -96,8 +77,6 @@ const TasksList: React.FC = () => {
 
       {taskFormFlag ? (
         <CreateTask
-          setTasks={setTasks}
-          tasks={tasks}
           setTaskFormFlag={setTaskFormFlag}
         />
       ) : null}
@@ -105,15 +84,12 @@ const TasksList: React.FC = () => {
       {editFlag ? (
         <EditTask
           setEditFlag={setEditFlag}
-          setTasks={setTasks}
-          tasks={tasks}
           task={singleTaskData}
         />
       ) : null}
 
       {deleteFlag ? (
         <DeleteTask
-          deleteTask={deleteTask}
           setDeleteFlag={setDeleteFlag}
           singleTaskData={singleTaskData}
         />
@@ -161,7 +137,9 @@ const TasksList: React.FC = () => {
         </tbody>
       </Table>
     </div>
-  );
+  )}
+)
+
 };
 
 export default TasksList;

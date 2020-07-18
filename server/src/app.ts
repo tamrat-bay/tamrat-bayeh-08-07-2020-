@@ -12,8 +12,8 @@ import {
 
 const app: Application = express();
 const Port: number | string = process.env.PORT || 5000;
-const MongoURI: string =
-  "mongo";
+const MongoURI: string = "mongo"
+
 
 app.use(express.json());
 

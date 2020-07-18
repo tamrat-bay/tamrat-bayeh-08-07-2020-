@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { IsUserLoggedContext } from "../../contexts/IsUserLoggedContext";
 import { Redirect } from "react-router-dom";
+import { useStore } from "../../contexts/storeContext";
+
+
 
 const Home = () => {
+  const stateStore = useStore()
   const { isUserLogged } = useContext(IsUserLoggedContext);
 
-  if (isUserLogged) return <Redirect to="/tasks" />;
+  if (stateStore.isUserLogged) return <Redirect to="/tasks" />;
 
   return (
     <div>
