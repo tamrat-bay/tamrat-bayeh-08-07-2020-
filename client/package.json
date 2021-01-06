@@ -9,7 +9,7 @@
     "@types/jest": "^24.9.1",
     "@types/react-bootstrap": "^0.32.9",
     "@types/react-router-dom": "^5.1.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "build": "^0.1.4",
     "formik": "^2.1.4",
